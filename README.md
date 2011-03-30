@@ -8,14 +8,17 @@ Disk Usage Analyser using JIT Sunburst
 
 ### Depends on
 
-* express
+* node.js (http://nodejs.org/)
+* express (http://expressjs.com/)
 * the du unix command
 
-run 
+### How to run the demo
+
+from the command line run 
 
 	node du-node.js
 
 browse to
 
-http://127.0.0.1:3000/jit-sunburst.html
+	http://127.0.0.1:3000/jit-sunburst.html
 
