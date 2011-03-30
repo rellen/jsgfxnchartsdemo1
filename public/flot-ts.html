@@ -1,0 +1,37 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>CPU Load w/ AJAX</title>
+    <link href="layout.css" rel="stylesheet" type="text/css"></link>
+    <!--[if IE]><script language="javascript" type="text/javascript" src="../excanvas.min.js"></script><![endif]-->
+    <script language="javascript" type="text/javascript" src="flot/jquery.js"></script>
+    <script language="javascript" type="text/javascript" src="flot/jquery.flot.js"></script>
+
+ </head>
+    <body>
+    <h1>CPU Load w/ AJAX</h1>
+
+    <div id="placeholder" style="width:800px;height:400px;"></div>
+
+   
+<script id="source">
+  $(function () {
+    setTimeout(fetchData, 1000);
+  });
+
+  function fetchData(){
+    $.ajax({
+      url: 'http://127.0.0.1:3001/sar',
+      dataType: 'json', // ([[x1,y1],[x2,y2]])
+      success: function(data, textStatus, xml){
+        // This is all that is required to do a plot with the data
+        $.plot($("#placeholder"), [data], { xaxis: { mode: "time" },yaxis: {min: 0, max: 100}});setTimeout(fetchData, 20000);
+      }
+    });
+  }    
+</script>
+
+ </body>
+</html>
+

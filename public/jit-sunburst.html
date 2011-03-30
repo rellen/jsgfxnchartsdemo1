@@ -1,0 +1,45 @@
+<html>
+  <head>
+    <title>Disk Usage Analyser using JIT Sunburst</title>
+
+    <!-- CSS Files  -->
+    <link type="text/css" href="Jit/Examples/css/base.css" rel="stylesheet" />
+    <link type="text/css" href="Jit/Examples/css/Sunburst.css" rel="stylesheet" />
+
+
+    <!--[if IE]><script language="javascript" type="text/javascript" src="../../Extras/excanvas.js"></script><![endif]-->
+
+    
+    <!-- JQuery for AJAX call -->
+    <script language="javascript" type="text/javascript" src="jquery-1.4.4.js"></script>
+
+    <!-- JIT Library File -->
+    <script language="javascript" type="text/javascript" src="Jit/jit.js"></script>
+
+    <!-- DUA Using JIT js -->
+    <script language="javascript" type="text/javascript" src="jit-sunburst.js"></script>
+  </head>
+
+  <body onload="init();" > <h1>Disk Usage Analyser using JIT Sunburst</h1>
+
+    <div id="container">
+
+      <div id="left-container">        
+        <div id="id-list"></div>
+        <br />
+        <button id='upBtn' onclick='goUp(sb)'>Up</button>
+        <br /><button id='upBtn' onclick='getJson(sb,currDir,maxDepth)'>Refresh</button>
+
+        <br /><button id='twoBtn' onclick='changeMaxDepth(2)'>Make Max Depth:2</button>
+        <br /><button id='threeBtn' onclick='changeMaxDepth(3)'>Make Max Depth:3</button>
+
+        <div id="inner-details"></div>
+      </div>
+      <div id="center-container">
+        <div id="infovis"></div>    
+     </div>
+     <div id="right-container">
+     </div>
+     <div id="log"></div>     
+  </body>
+</html>

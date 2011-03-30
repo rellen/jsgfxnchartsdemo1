@@ -1,0 +1,37 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>CPU Load w/ Web Sockets</title>
+        <!--[if IE]><script language="javascript" type="text/javascript" src="../excanvas.min.js"></script><![endif]-->
+    <script language="javascript" type="text/javascript" src="flot/jquery.js"></script>
+    <script language="javascript" type="text/javascript" src="flot/jquery.flot.js"></script>
+
+ </head>
+    <body>
+    <h1>CPU Load with Web Sockets</h1>
+
+    <div id="placeholder" style="width:800px;height:400px;"></div>
+
+   <script src="json2.js"></script> 
+
+
+
+<script src="http://127.0.0.1:3001/socket.io/socket.io.js"></script> 
+
+
+<script> 
+
+ 
+  var socket = new io.Socket('127.0.0.1');
+  socket.connect(); 
+ 
+  socket.on('message', function(data){
+    //alert(data);
+    //need to parse the stringified json but like AJAX, very simple to plot
+    $.plot($("#placeholder"), [JSON.parse(data)], { xaxis: { mode: "time", minTickSize: [1, "minute"], ticks: 8 },yaxis: {min: 0, max: 100}});	
+  }); 
+</script> 
+</body>
+</html>
+
