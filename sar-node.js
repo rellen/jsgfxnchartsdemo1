@@ -7,6 +7,9 @@ var io = require('socket.io');
 var express = require('express');
 var app = express.createServer();
 
+var serverPort = 3001;
+var serverAddr = '127.0.0.1';
+
 app.configure(function (){
   app.use(express.staticProvider(__dirname + '/public'));
 });
@@ -17,7 +20,7 @@ var tsData = new Array();
 
 var rate = 6;
 
-function startup(){
+function startup() {
 
   sar = spawn('sar', ['-u', ''+rate]); 
 
@@ -65,7 +68,7 @@ app.get('/sar', function(req, res){
 
 
 startup();
-app.listen(3001,'127.0.0.1');
+app.listen(serverPort,serverAddr);
 
 
 // websockets stuff
