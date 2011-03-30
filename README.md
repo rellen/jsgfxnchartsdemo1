@@ -6,7 +6,7 @@ Two demos of data-driven web 2d graphics and charting using javascript framework
 Disk Usage Analyser using JIT Sunburst
 --------------------------------------
 
-This demo uses the [JIT](thejit.org) Sunburst visualisation to create a Baobab-like view of disk utilisation.
+This demo uses the [JIT](http://thejit.org) Sunburst visualisation to create a Baobab-like view of disk utilisation.
 A node.js server scraping the output from the unix command du (actually wrapped in a shell script) is used to get the disk usage and to serve up the intial HTML pages and scripts.
 
 A version of JIT is included in /public
