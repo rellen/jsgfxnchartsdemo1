@@ -15,7 +15,7 @@ A version of JIT is included in /public
 
 * [node.js](http://nodejs.org/)
 * [express](http://expressjs.com/)
-* the du unix command
+* the du unix command (your mileage may vary)
 
 ### How to run the demo
 
@@ -44,7 +44,7 @@ A version of Flot is included in /public
 * [socekt.io](http://socket.io/)
 * the sar unix command (sysstat package in Debian and variants)
 
-### NOTE: sar appears to have significant behaviour differences between operating systems.
+### NOTE: sar appears to have significant behaviour differences between operating systems - at least for me on Debian and Ubuntu.
 Your mileage may vary.
 
 ### How to run the demo
