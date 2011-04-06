@@ -9,7 +9,7 @@ var serverAddr = '127.0.0.1';
 
 app.configure(function () {
   // use express to serve up static files (HTML, CSS, JS)
-  app.use(express.staticProvider(__dirname + '/public'));
+  app.use(express.static(__dirname + '/public'));
 });
 
 // also create a 'route' for the JSON service at /du

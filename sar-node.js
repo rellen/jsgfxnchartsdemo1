@@ -11,7 +11,7 @@ var serverPort = 3001;
 var serverAddr = '127.0.0.1';
 
 app.configure(function (){
-  app.use(express.staticProvider(__dirname + '/public'));
+  app.use(express.static(__dirname + '/public'));
 });
 
 var sar = null;
