@@ -140,7 +140,4 @@ app.get('/du', function(req, res) {
 
 // start the server
 app.listen(serverPort,serverAddr);
-
-
-
-
+console.log('You can listen on http://127.0.0.1:3000/jit-sunburst.html');

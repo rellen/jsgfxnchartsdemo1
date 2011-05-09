@@ -132,7 +132,13 @@ function init() {
         }
    });
 
-  getJson(sb,'/home',maxDepth);
+  if (navigator.userAgent.indexOf('Macintosh') == -1) {
+    // assume linux
+    getJson(sb,'/home',maxDepth);
+  } else {
+    // assume mac
+    getJson(sb,'/Users',maxDepth);
+  }
    
   }  
 
