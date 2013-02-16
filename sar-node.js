@@ -5,7 +5,7 @@ var io = require('socket.io');
 
 
 var express = require('express');
-var app = express.createServer();
+var app = express();
 
 var serverPort = 3001;
 var serverAddr = '127.0.0.1';
@@ -18,25 +18,20 @@ var sar = null;
 
 var tsData = new Array();
 
-var rate = 6;
+var rate = 1;
 
-function startup() {
+function collectData() {
 
   sar = spawn('sar', ['-u', ''+rate]); 
 
+  
   sar.stdout.on('data', function (data) {
-   // util.print('STDOUT: ' + data.toString());
-    //sarResult += ''+data.toString().replace('\n','\t');  
-
-    var dataArray = data.toString().replace('/\n/gi','').split(' ');
-    var timestamp = new Date().getTime();
-   // util.print(timestamp+'\n');
+    var dataArray = data.toString().split('\n')[3].replace('/\n/gi','').split(' ');
+    var timestamp = new Date(new Date().getTime());
     if ((dataArray[dataArray.length-1]*1.0).toString() == 'NaN') return;
     var load = Math.round(100 - 1.0*dataArray[dataArray.length-1]);
-   // util.print(load+'\n');
-    tsData.push([timestamp, load]);
+    tsData.push({timestamp: timestamp, load: load});
     if (tsData.length > 3600/rate) tsData.shift();
-
   });
 
   sar.stderr.on('data', function (data) {
@@ -44,16 +39,14 @@ function startup() {
   });
 
   sar.on('exit', function (code) {
-    console.log('child process exited with code ' + code);
+    setTimeout(collectData, rate * 1000);
+    
   });
-
 }
 
 app.get('/sar', function(req, res){
 
-
-    if (sar==null) startup();
-  
+    if (sar==null) collectData();
 
     //util.print(JSON.stringify(tree));
     res.writeHead(200, {'Content-Type': 'application/json','Content-Length':JSON.stringify(tsData).length});
@@ -67,7 +60,7 @@ app.get('/sar', function(req, res){
 
 
 
-startup();
+collectData();
 app.listen(serverPort,serverAddr);
 
 

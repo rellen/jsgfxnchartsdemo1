@@ -26,7 +26,7 @@
       dataType: 'json', // ([[x1,y1],[x2,y2]])
       success: function(data, textStatus, xml){
         // This is all that is required to do a plot with the data
-        $.plot($("#placeholder"), [data], { xaxis: { mode: "time" },yaxis: {min: 0, max: 100}});setTimeout(fetchData, 20000);
+        $.plot($("#placeholder"), [data], { xaxis: { mode: "time" },yaxis: {min: 0, max: 100}});setTimeout(fetchData, 5000);
       }
     });
   }    

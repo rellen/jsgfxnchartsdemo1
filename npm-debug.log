@@ -1,0 +1,45 @@
+0 info it worked if it ends with ok
+1 verbose cli [ 'node', '/usr/local/bin/npm', 'install', 'socketio' ]
+2 info using npm@1.2.11
+3 info using node@v0.8.20
+4 verbose read json /Users/robert/jsgfxnchartsdemo1/package.json
+5 verbose read json /Users/robert/jsgfxnchartsdemo1/node_modules/express/package.json
+6 verbose read json /Users/robert/jsgfxnchartsdemo1/package.json
+7 verbose cache add [ 'socketio', null ]
+8 verbose cache add name=undefined spec="socketio" args=["socketio",null]
+9 verbose parsed url { pathname: 'socketio', path: 'socketio', href: 'socketio' }
+10 silly lockFile be461470-socketio socketio
+11 verbose lock socketio /Users/robert/.npm/be461470-socketio.lock
+12 silly lockFile be461470-socketio socketio
+13 silly lockFile be461470-socketio socketio
+14 verbose addNamed [ 'socketio', '' ]
+15 verbose addNamed [ null, '' ]
+16 silly lockFile fa004f70-socketio socketio@
+17 verbose lock socketio@ /Users/robert/.npm/fa004f70-socketio.lock
+18 silly addNameRange { name: 'socketio', range: '', hasData: false }
+19 verbose url raw socketio
+20 verbose url resolving [ 'https://registry.npmjs.org/', './socketio' ]
+21 verbose url resolved https://registry.npmjs.org/socketio
+22 info trying registry request attempt 1 at 15:06:26
+23 http GET https://registry.npmjs.org/socketio
+24 http 404 https://registry.npmjs.org/socketio
+25 silly registry.get cb [ 404,
+25 silly registry.get   { server: 'CouchDB/1.2.1 (Erlang OTP/R15B)',
+25 silly registry.get     date: 'Sat, 16 Feb 2013 05:04:31 GMT',
+25 silly registry.get     'content-type': 'application/json',
+25 silly registry.get     'content-length': '52',
+25 silly registry.get     'cache-control': 'must-revalidate' } ]
+26 silly lockFile fa004f70-socketio socketio@
+27 silly lockFile fa004f70-socketio socketio@
+28 error 404 'socketio' is not in the npm registry.
+28 error 404 You should bug the author to publish it
+28 error 404
+28 error 404 Note that you can also install from a
+28 error 404 tarball, folder, or http url, or git url.
+29 error System Darwin 12.2.1
+30 error command "node" "/usr/local/bin/npm" "install" "socketio"
+31 error cwd /Users/robert/jsgfxnchartsdemo1
+32 error node -v v0.8.20
+33 error npm -v 1.2.11
+34 error code E404
+35 verbose exit [ 1, true ]

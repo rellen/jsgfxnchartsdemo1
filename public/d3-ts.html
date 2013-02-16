@@ -1,0 +1,91 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>CPU Load w/ D3 and AJAX</title>
+  
+    <!--[if IE]><script language="javascript" type="text/javascript" src="../excanvas.min.js"></script><![endif]-->
+    <script language="javascript" type="text/javascript" src="flot/jquery.js"></script>
+    <script language="javascript" type="text/javascript" src="d3/3.0.1/d3.v3.js"></script>
+
+ </head>
+    <body>
+    <h1>CPU Load w/ D3 and AJAX</h1>
+
+    <div id="placeholder" style="width:800px;height:400px;"></div>
+
+   
+<script id="source">
+  $(function () {
+    setTimeout(fetchData, 100);
+  });
+
+  function fetchData(){
+    $.ajax({
+      url: 'http://127.0.0.1:3001/sar',
+      dataType: 'json', // ([[x1,y1],[x2,y2]])
+      success: function(data, textStatus, xml){
+        // This is all that is required to do a plot with the data
+        //$.plot($("#placeholder"), [data], { xaxis: { mode: "time" },yaxis: {min: 0, max: 100}});setTimeout(fetchData, 5000);
+
+	var margin = {top: 10, right: 80, bottom: 80, left: 80},
+	    width = 600 - margin.left - margin.right,
+	        height =  480 - margin.top - margin.bottom;
+
+
+
+	var x = d3.time.scale()
+		    	.range([0, width]);
+	var y = d3.scale.linear()
+			.range([height, 0]);
+
+x.domain(d3.extent(data, function(d) { return d3.time.format.utc("%Y-%m-%dT%H:%M:%S.%LZ").parse(d.timestamp); }));
+
+y.domain([0, 100]);
+
+	var color = d3.scale.category10();
+
+	var parseDate = d3.time.format("%Y%m%d%H%M").parse;
+
+	var line = d3.svg.line()
+			.x(function(d) {
+				
+				return x(d3.time.format.utc("%Y-%m-%dT%H:%M:%S.%LZ").parse(d.timestamp))})
+			.y(function(d) { return y(d.load)});
+
+	var svg = d3.select("#placeholder").append("svg")
+			.attr("width", width + margin.left + margin.right)
+			.attr("height", height + margin.top + margin.bottom)
+			.append("g")
+			.attr("transform", "translate(" + margin.left + "," + margin.top + ")")
+			;
+
+
+
+ 
+
+svg.append("path")
+	.data([data])
+    .attr("class", "line")
+    .attr("d", function(d) { return line(d); })
+    .style("stroke", "red")
+    .style("fill", "none");
+
+ /* svg.selectAll("circle").data(data).enter()
+     .append("rect")
+     .attr("stroke", "black")
+     .attr("fill", "black" )
+     .attr("x", function(d, i) { return new Date(x(d[0])) - 1.5 })
+     .attr("y", function(d, i) { return y(d[1]) - 1.5 })
+     .attr("height", function(d, i) { return 3 }).attr("width", function(d, i) { return 3 });
+*/
+    
+
+	}
+    });
+  }    
+</script>
+
+ </body>
+</html>
+
