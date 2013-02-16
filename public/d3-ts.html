@@ -62,8 +62,31 @@ y.domain([0, 100]);
 			;
 
 
+var xAxis = d3.svg.axis()
+    .scale(x)
+    .orient("bottom")
+    .ticks(d3.time.minutes, 5)
+    .tickFormat(d3.time.format("%X"));
 
- 
+var yAxis = d3.svg.axis()
+    .scale(y)
+    .orient("left");
+
+
+  svg.append("g")
+      .attr("class", "x axis")
+      .attr("transform", "translate(0," + height + ")")
+      .call(xAxis);
+
+  svg.append("g")
+      .attr("class", "y axis")
+      .call(yAxis)
+    .append("text")
+      .attr("transform", "rotate(-90)")
+      .attr("y", 7)
+      .attr("dy", ".71em")
+      .style("text-anchor", "end")
+      .text("Axis");
 
 svg.append("path")
 	.data([data])
