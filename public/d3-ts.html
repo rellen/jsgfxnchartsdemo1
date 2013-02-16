@@ -29,8 +29,8 @@
         //$.plot($("#placeholder"), [data], { xaxis: { mode: "time" },yaxis: {min: 0, max: 100}});setTimeout(fetchData, 5000);
 
 	var margin = {top: 10, right: 80, bottom: 80, left: 80},
-	    width = 600 - margin.left - margin.right,
-	        height =  480 - margin.top - margin.bottom;
+	    width = 1200 - margin.left - margin.right,
+	        height =  680 - margin.top - margin.bottom;
 
 
 
@@ -53,6 +53,7 @@ y.domain([0, 100]);
 				return x(d3.time.format.utc("%Y-%m-%dT%H:%M:%S.%LZ").parse(d.timestamp))})
 			.y(function(d) { return y(d.load)});
 
+	d3.selectAll("svg").remove();		
 	var svg = d3.select("#placeholder").append("svg")
 			.attr("width", width + margin.left + margin.right)
 			.attr("height", height + margin.top + margin.bottom)
@@ -67,7 +68,7 @@ y.domain([0, 100]);
 svg.append("path")
 	.data([data])
     .attr("class", "line")
-    .attr("d", function(d) { return line(d); })
+    .attr("d", line )
     .style("stroke", "red")
     .style("fill", "none");
 
@@ -83,7 +84,7 @@ svg.append("path")
 
 	}
     });
-  }    
+   setTimeout(fetchData, 5000);}    
 </script>
 
  </body>
