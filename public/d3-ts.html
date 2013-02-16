@@ -23,13 +23,13 @@
   function fetchData(){
     $.ajax({
       url: 'http://127.0.0.1:3001/sar',
-      dataType: 'json', // ([[x1,y1],[x2,y2]])
+      dataType: 'json', 
       success: function(data, textStatus, xml){
         // This is all that is required to do a plot with the data
         //$.plot($("#placeholder"), [data], { xaxis: { mode: "time" },yaxis: {min: 0, max: 100}});setTimeout(fetchData, 5000);
 
 	var margin = {top: 10, right: 80, bottom: 80, left: 80},
-	    width = 1200 - margin.left - margin.right,
+	    width = window.innerWidth - margin.left - margin.right,
 	        height =  680 - margin.top - margin.bottom;
 
 
@@ -48,6 +48,7 @@ y.domain([0, 100]);
 	var parseDate = d3.time.format("%Y%m%d%H%M").parse;
 
 	var line = d3.svg.line()
+			.interpolate("basis")
 			.x(function(d) {
 				
 				return x(d3.time.format.utc("%Y-%m-%dT%H:%M:%S.%LZ").parse(d.timestamp))})
@@ -61,11 +62,13 @@ y.domain([0, 100]);
 			.attr("transform", "translate(" + margin.left + "," + margin.top + ")")
 			;
 
+//alert(Math.ceil((d3.max(data, function(d) { return d3.time.format.utc("%Y-%m-%dT%H:%M:%S.%LZ").parse(d.timestamp); }) - d3.min(data, function(d) { return d3.time.format.utc("%Y-%m-%dT%H:%M:%S.%LZ").parse(d.timestamp); }))/1000/5));
 
 var xAxis = d3.svg.axis()
     .scale(x)
     .orient("bottom")
-    .ticks(d3.time.minutes, 5)
+    .ticks(d3.time.minutes, Math.ceil((d3.max(data, function(d) { return d3.time.format.utc("%Y-%m-%dT%H:%M:%S.%LZ").parse(d.timestamp); }) - d3.min(data, function(d) { return d3.time.format.utc("%Y-%m-%dT%H:%M:%S.%LZ").parse(d.timestamp); }))/1000/60/6))
+    	//(d3.max(data, function(d) { return d3.time.format.utc("%Y-%m-%dT%H:%M:%S.%LZ").parse(d.timestamp); }) - d3.min(data, function(d) { return d3.time.format.utc("%Y-%m-%dT%H:%M:%S.%LZ").parse(d.timestamp); }))/1)
     .tickFormat(d3.time.format("%X"));
 
 var yAxis = d3.svg.axis()
@@ -76,17 +79,24 @@ var yAxis = d3.svg.axis()
   svg.append("g")
       .attr("class", "x axis")
       .attr("transform", "translate(0," + height + ")")
-      .call(xAxis);
+      .call(xAxis)
+      .append("text")
+      .attr("y", 25)
+      .attr("x", width/2)
+      .attr("dy", ".71em")
+      .style("text-anchor", "center")
+      .text("Time (hh:mm:ss)");
 
   svg.append("g")
       .attr("class", "y axis")
       .call(yAxis)
     .append("text")
       .attr("transform", "rotate(-90)")
-      .attr("y", 7)
+      .attr("x", height/-2)
+      .attr("y", -40)
       .attr("dy", ".71em")
-      .style("text-anchor", "end")
-      .text("Axis");
+      .style("text-anchor", "center")
+      .text("% Total CPU load");
 
 svg.append("path")
 	.data([data])
@@ -107,7 +117,7 @@ svg.append("path")
 
 	}
     });
-   setTimeout(fetchData, 5000);}    
+   setTimeout(fetchData, 2000);}    
 </script>
 
  </body>
