@@ -31,7 +31,7 @@ function getJson(sb,dir,levels) {
           height =  680 - margin.top - margin.bottom,
           radius = Math.min(width, height) / 2,
     color = d3.scale.category20c();
-
+d3.selectAll("svg").remove(); 
       var vis = d3.select("#infovis").append("svg:svg")
     .attr("width", width)
     .attr("height", height)
@@ -48,8 +48,8 @@ var partition = d3.layout.partition()
 var arc = d3.svg.arc()
     .startAngle(function(d) { return d.x; })
     .endAngle(function(d) { return d.x + d.dx; })
-    .innerRadius(function(d) { return Math.sqrt(d.y); })
-    .outerRadius(function(d) { return Math.sqrt(d.y + d.dy); });
+    .innerRadius(function(d) { return Math.sqrt(d.y)/2; })
+    .outerRadius(function(d) { return Math.sqrt(d.y + d.dy)/2; });
  
  
 
@@ -59,16 +59,17 @@ var arc = d3.svg.arc()
       .attr("display", function(d) { return d.depth ? null : "none"; }) // hide inner ring
       .attr("d", arc)
       .attr("stroke", "#fff")
-      .attr("fill", function(d) { return color((d.children ? d : d.parent).value); });
-      //.attr("fill-rule", "evenodd");
+      .attr("fill", function(d) { return color((d.x + d.dx / 2 - Math.PI / 2) / Math.PI * 180); })
+      .attr("fill-rule", "evenodd");
   
 vis.data([data]).selectAll("text.node")
       .data(partition)
     .enter().append("svg:text")
     .attr("transform", function(d) { return "rotate(" + (d.x + d.dx / 2 - Math.PI / 2) / Math.PI * 180 + ")"; })
-      .attr("x", function(d) { return Math.sqrt(d.y); })
+      .attr("x", function(d) { return Math.sqrt(d.y)/2; })
       .attr("dx", "6") // margin
       .attr("dy", ".35em") // vertical-align
+      .attr("display", function(d) { console.log(' ' + (d.dx) + ' ' + d.fullPath);return d.depth > 2 || d.dx < 0.1 ? "none": null; })
       .text(function(d) { return d.fullPath; });
 
   }});
