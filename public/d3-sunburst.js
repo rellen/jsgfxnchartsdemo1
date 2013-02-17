@@ -22,8 +22,8 @@ function getJson(sb,dir,levels) {
     dataType: 'json',
     success: function(data, textStatus, xml){
       $('#upBtn').removeAttr('disabled');
-      $('#upBtn').val('Go up to ');
-      $('#upBtn').val('Go up to ' + getParent(currDir));
+      $('#upBtn').text('Go up to ');
+      $('#upBtn').text('At '+ currDir +'; Go back up to ' + getParent(currDir));
       console.log(data);
 
       var margin = {top: 10, right: 10, bottom: 10, left: 10},
@@ -82,13 +82,19 @@ var arc = d3.svg.arc()
   function mouseover(d) {
     console.log(d.fullPath);
     $("#inner-details").empty();
-    var html = "<b>PATH:</b>" + d.fullPath; 
+    var html = "<b>Se:</b>" + d.fullPath; 
            
     if("value" in d) {
       console.log("value");
+      console.log((d.x + d.dx / 2 - Math.PI / 2) / Math.PI * 180);
+      console.log("");
+
       html += "<br /><b>File size:</b> " + Math.round(d.value / 1024) + " MB";
     }
     $("#inner-details").append(html);
+    //$("#inner-details").animate({left:width*Math.cos(((d.x + d.dx / 2 - Math.PI / 2) / Math.PI * 180)/360 * (2*Math.PI)), top:1 }, 50);
+  
+    
   }
 
   }});
