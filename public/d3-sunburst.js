@@ -60,6 +60,7 @@ var arc = d3.svg.arc()
       .attr("d", arc)
       .attr("stroke", "#fff")
       .attr("fill", function(d) { return color((d.x + d.dx / 2 - Math.PI / 2) / Math.PI * 180); })
+       .on("click", click)
       .attr("fill-rule", "evenodd");
   
 vis.data([data]).selectAll("text.node")
@@ -71,6 +72,10 @@ vis.data([data]).selectAll("text.node")
       .attr("dy", ".35em") // vertical-align
       .attr("display", function(d) { console.log(' ' + (d.dx) + ' ' + d.fullPath);return d.depth > 2 || d.dx < 0.1 ? "none": null; })
       .text(function(d) { return d.fullPath; });
+
+ function click(d) {
+    getJson(sb, d.fullPath, levels);
+  }
 
   }});
 
