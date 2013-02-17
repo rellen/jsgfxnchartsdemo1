@@ -26,9 +26,9 @@ function getJson(sb,dir,levels) {
       $('#upBtn').val('Go up to ' + getParent(currDir));
       console.log(data);
 
-      var margin = {top: 10, right: 80, bottom: 80, left: 80},
-      width = window.innerWidth - margin.left - margin.right,
-          height =  680 - margin.top - margin.bottom,
+      var margin = {top: 10, right: 10, bottom: 10, left: 10},
+      width = $('#infovis').parent().width() - margin.left - margin.right,
+          height =  $('#infovis').parent().height() - margin.top - margin.bottom,
           radius = Math.min(width, height) / 2,
     color = d3.scale.category20c();
 d3.selectAll("svg").remove(); 
@@ -48,8 +48,8 @@ var partition = d3.layout.partition()
 var arc = d3.svg.arc()
     .startAngle(function(d) { return d.x; })
     .endAngle(function(d) { return d.x + d.dx; })
-    .innerRadius(function(d) { return Math.sqrt(d.y)/2; })
-    .outerRadius(function(d) { return Math.sqrt(d.y + d.dy)/2; });
+    .innerRadius(function(d) { return Math.sqrt(d.y); })
+    .outerRadius(function(d) { return Math.sqrt(d.y + d.dy); });
  
  
 
@@ -65,7 +65,7 @@ var arc = d3.svg.arc()
 
       .attr("fill-rule", "evenodd");
   
-vis.data([data]).selectAll("text.node")
+/* vis.data([data]).selectAll("text.node")
       .data(partition)
     .enter().append("svg:text")
     .attr("transform", function(d) { return "rotate(" + (d.x + d.dx / 2 - Math.PI / 2) / Math.PI * 180 + ")"; })
@@ -73,7 +73,7 @@ vis.data([data]).selectAll("text.node")
       .attr("dx", "6") // margin
       .attr("dy", ".35em") // vertical-align
       .attr("display", function(d) { return d.depth > 2 || d.dx < 0.1 ? "none": null; })
-      .text(function(d) { return d.fullPath; });
+      .text(function(d) { return d.fullPath; }); */
 
  function click(d) {
     getJson(sb, d.fullPath, levels);
@@ -82,11 +82,11 @@ vis.data([data]).selectAll("text.node")
   function mouseover(d) {
     console.log(d.fullPath);
     $("#inner-details").empty();
-    var html = "<h4>PATH:" + d.fullPath + "</h4>"; 
+    var html = "<b>PATH:</b>" + d.fullPath; 
            
     if("value" in d) {
       console.log("value");
-      html += "<b>File size:</b> " + Math.round(d.value / 1024) + " MB";
+      html += "<br /><b>File size:</b> " + Math.round(d.value / 1024) + " MB";
     }
     $("#inner-details").append(html);
   }

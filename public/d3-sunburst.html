@@ -22,7 +22,7 @@
 
     <div id="container">
 
-      <div id="left-container">        
+      <div id="left-container" style="float: left; width: 300; height: 300">        
         <div id="id-list"></div>
         <br />
         <button id='upBtn' onclick='goUp(sb)'>Up</button>
@@ -31,13 +31,12 @@
         <br /><button id='twoBtn' onclick='changeMaxDepth(2)'>Make Max Depth:2</button>
         <br /><button id='threeBtn' onclick='changeMaxDepth(3)'>Make Max Depth:3</button>
 
-        <div id="inner-details"></div>
+        <div id="inner-details"  style="float: left;">
+          Mouse over a segment of the chart to see what its path is and the size in MB !!!!!!</div>
       </div>
-      <div id="center-container">
+      <div id="center-container" style="float: left; width: 900; height: 600">
         <div id="infovis"></div>    
      </div>
-     <div id="right-container">
-     </div>
-     <div id="log"></div>     
+      
   </body>
 </html>
