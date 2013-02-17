@@ -42,7 +42,7 @@ app.get('/du', function(req, res) {
           if (pathPart.length < 2) {
             // full path done
             //util.print("< 2: "+pathPart+"\n");
-            treePart.children[index].size = (size*1)+1;
+            treePart.children[index].value = (size*1)+1;
             treePart.children[index].name=fullPath;
             treePart.children[index].fullPath=fullPath;
           }
@@ -57,7 +57,7 @@ app.get('/du', function(req, res) {
     }
     if (found == -1) {
      // util.print("PATHPART:"+pathPart+"\n");
-      var elem = treePart.children.push({children:[],id:pathPart[0].toString(),size:1});
+      var elem = treePart.children.push({children:[],id:pathPart[0].toString(),value:1});
       tree.insertPath(treePart, pathPart, size,fullPath);
     }
 
@@ -82,6 +82,7 @@ app.get('/du', function(req, res) {
   du.on('exit', function (code) {
     console.log('child process exited with code ' + code);
     // parse the full du result
+    //if (code != 0) return;
     var duResults = duResult.toString().replace(/\n/gi,'\t').split('\t');
     var index;
     tree.id = dir;
@@ -93,7 +94,7 @@ app.get('/du', function(req, res) {
       
       if (path == dir){
 	//tree.id = path;
-        tree.size = size;
+        tree.value = size;
       }
       else {
         var fullPath = path.split('/');
