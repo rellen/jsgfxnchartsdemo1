@@ -4,8 +4,8 @@ var util   = require('util'),
 var express = require('express');
 var app = express.createServer();
 
-var serverPort = 3000;
-var serverAddr = '127.0.0.1';
+var serverPort = 3002;
+var serverAddr = 'localhost';
 
 app.configure(function () {
   // use express to serve up static files (HTML, CSS, JS)
@@ -141,4 +141,4 @@ app.get('/du', function(req, res) {
 
 // start the server
 app.listen(serverPort,serverAddr);
-console.log('You can listen on http://127.0.0.1:3000/jit-sunburst.html');
+console.log('You can listen on http://localhost:3002/d3-sunburst.html');

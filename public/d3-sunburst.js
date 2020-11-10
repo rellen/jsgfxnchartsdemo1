@@ -2,13 +2,15 @@ var currDir = "";
 var maxDepth = 2;
 var sb;
 
-function init(){if (navigator.userAgent.indexOf('Macintosh') == -1) {
+function init(){
+  //if (navigator.userAgent.indexOf('Macintosh') == -1) {
     // assume linux
-    getJson(sb,'/home',maxDepth);
-  } else {
+    //getJson(sb,'/home',maxDepth);
+  //} else {
     // assume mac
     getJson(sb,'/Users',maxDepth);
-  }}
+  //}
+}
 
 
 function getJson(sb,dir,levels) {
@@ -18,7 +20,7 @@ function getJson(sb,dir,levels) {
   
   // make the AJAX get request for the JSON-formatted du data
   $.ajax({
-    url: 'http://127.0.0.1:3000/du?dir='+dir+'&levels='+levels,
+    url: 'http://localhost:3002/du?dir='+dir+'&levels='+levels,
     dataType: 'json',
     success: function(data, textStatus, xml){
       $('#upBtn').removeAttr('disabled');

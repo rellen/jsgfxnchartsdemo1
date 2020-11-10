@@ -8,7 +8,7 @@ var express = require('express');
 var app = express();
 
 var serverPort = 3001;
-var serverAddr = '127.0.0.1';
+var serverAddr = 'localhost';
 
 app.configure(function (){
   app.use(express.static(__dirname + '/public'));
@@ -107,7 +107,3 @@ function writeData(client){
   
   
 }
-
-
-
-

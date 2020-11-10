@@ -22,7 +22,7 @@
 
   function fetchData(){
     $.ajax({
-      url: 'http://127.0.0.1:3001/sar',
+      url: 'http://localhost:3001/sar',
       dataType: 'json', 
       success: function(data, textStatus, xml){
         // This is all that is required to do a plot with the data
@@ -48,7 +48,7 @@ y.domain([0, 100]);
 	var parseDate = d3.time.format("%Y%m%d%H%M").parse;
 
 	var line = d3.svg.line()
-			.interpolate("cardinal")
+			.interpolate("base")
 			.x(function(d) {
 				
 				return x(d3.time.format.utc("%Y-%m-%dT%H:%M:%S.%LZ").parse(d.timestamp))})
